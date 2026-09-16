@@ -1,4 +1,4 @@
-import LinkCard from "@/components/LinkCard";
+import LinkList from "@/components/LinkList";
 import ProfileHeader from "@/components/ProfileHeader";
 
 const profile = {
@@ -9,11 +9,12 @@ const profile = {
 
 const links = [
   {
+    id: "instagram",
     label: "Instagram",
     href: "https://www.instagram.com/jun0.xx?stkn=aDlkc250aThsenJv",
   },
-  { label: "GitHub", href: "https://github.com/xun7x" },
-  { label: "Email", href: "mailto:vector11599@gmail.com" },
+  { id: "github", label: "GitHub", href: "https://github.com/xun7x" },
+  { id: "email", label: "Email", href: "mailto:vector11599@gmail.com" },
 ];
 
 export default function Home() {
@@ -25,11 +26,7 @@ export default function Home() {
           bio={profile.bio}
           imageUrl={profile.imageUrl}
         />
-        <div className="flex w-full flex-col gap-5">
-          {links.map((link) => (
-            <LinkCard key={link.label} label={link.label} href={link.href} />
-          ))}
-        </div>
+        <LinkList links={links} />
       </main>
     </div>
   );
