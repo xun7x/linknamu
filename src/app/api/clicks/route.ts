@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import clientPromise from "@/lib/mongodb";
+import getMongoClient from "@/lib/mongodb";
 
 type ClickDocument = {
   _id: string;
@@ -9,7 +9,7 @@ type ClickDocument = {
 const COLLECTION = "clicks";
 
 export async function GET() {
-  const client = await clientPromise;
+  const client = await getMongoClient();
   const collection = client.db().collection<ClickDocument>(COLLECTION);
   const docs = await collection.find().toArray();
 
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid linkId" }, { status: 400 });
   }
 
-  const client = await clientPromise;
+  const client = await getMongoClient();
   const collection = client.db().collection<ClickDocument>(COLLECTION);
   const result = await collection.findOneAndUpdate(
     { _id: linkId },
